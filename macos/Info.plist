@@ -5,7 +5,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>M Reader</string>
 	<key>CFBundleExecutable</key>
-	<string>m_reader_rs</string>
+	<string>m_reader</string>
 	<key>CFBundleIconFile</key>
 	<string>icon.icns</string>
 	<key>CFBundleIdentifier</key>
