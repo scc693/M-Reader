@@ -1,0 +1,262 @@
+:root {
+  color-scheme: light;
+  --app-bg: radial-gradient(circle at top, #ffffff 0%, #f0f1f5 55%, #e7e9ef 100%);
+  --panel: rgba(255, 255, 255, 0.92);
+  --panel-border: rgba(28, 28, 30, 0.08);
+  --surface: rgba(255, 255, 255, 0.96);
+  --surface-border: rgba(148, 156, 178, 0.18);
+  --shadow: 0 20px 50px rgba(26, 32, 44, 0.08);
+  --control: #e6e8ee;
+  --text: #1c1c1e;
+  --muted: #5c5f66;
+  --accent: #2f6feb;
+  --accent-strong: #1e4fbf;
+  --code-bg: #f7f7f9;
+  --code-border: #e4e4e8;
+  --error-bg: rgba(255, 243, 243, 0.9);
+  --error-text: #b42318;
+  --error-border: rgba(180, 35, 24, 0.2);
+  --body-font: "Avenir Next", "Avenir", "Segoe UI", sans-serif;
+  --heading-font: "Avenir Next", "Avenir", "Segoe UI", sans-serif;
+  --code-font: "SF Mono", "Fira Code", "Consolas", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--body-font);
+  color: var(--text);
+  background: #f0f1f5;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--text);
+  background: var(--app-bg);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--panel-border);
+  backdrop-filter: blur(18px);
+}
+
+.title-block h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.theme-select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: white;
+  font-size: 12px;
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  background: var(--control);
+  color: var(--text);
+}
+
+button.primary {
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+}
+
+button.primary:hover {
+  background: var(--accent-strong);
+}
+
+.content {
+  flex: 1;
+  padding: 24px;
+}
+
+.error {
+  padding: 6px 24px 12px;
+  color: var(--error-text);
+  font-size: 12px;
+  background: var(--error-bg);
+  border-bottom: 1px solid var(--error-border);
+}
+
+.empty-state {
+  max-width: 640px;
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--surface-border);
+}
+
+.empty-state h2 {
+  margin-top: 0;
+  font-size: 22px;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.recent-list {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recent-header {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.recent-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+  background: rgba(243, 244, 248, 0.9);
+}
+
+.recent-name {
+  font-weight: 600;
+  font-size: 13px;
+  text-align: left;
+}
+
+.recent-path {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: right;
+}
+
+.clear-recent {
+  margin-top: 6px;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  padding-left: 0;
+}
+
+.markdown-body {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 28px;
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--shadow);
+  font-family: var(--body-font);
+  line-height: 1.6;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3 {
+  margin-top: 24px;
+  margin-bottom: 12px;
+  font-family: var(--heading-font);
+}
+
+.markdown-body pre {
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 10px;
+  padding: 14px;
+  overflow-x: auto;
+}
+
+.markdown-body code {
+  font-family: var(--code-font);
+  font-size: 0.92em;
+}
+
+.app.theme-github {
+  --app-bg: radial-gradient(circle at top, #ffffff 0%, #f0f1f5 55%, #e7e9ef 100%);
+  --panel: rgba(255, 255, 255, 0.92);
+  --panel-border: rgba(28, 28, 30, 0.08);
+  --surface: rgba(255, 255, 255, 0.96);
+  --surface-border: rgba(148, 156, 178, 0.18);
+  --shadow: 0 20px 50px rgba(26, 32, 44, 0.08);
+  --control: #e6e8ee;
+  --text: #1c1c1e;
+  --muted: #5c5f66;
+  --accent: #2f6feb;
+  --accent-strong: #1e4fbf;
+  --code-bg: #f7f7f9;
+  --code-border: #e4e4e8;
+  --body-font: "Avenir Next", "Avenir", "Segoe UI", sans-serif;
+  --heading-font: "Avenir Next", "Avenir", "Segoe UI", sans-serif;
+}
+
+.app.theme-docc {
+  --app-bg: radial-gradient(circle at top, #f9fbff 0%, #eef4ff 60%, #e4eefc 100%);
+  --panel: rgba(245, 248, 255, 0.94);
+  --panel-border: rgba(60, 90, 150, 0.12);
+  --surface: rgba(255, 255, 255, 0.98);
+  --surface-border: rgba(99, 119, 169, 0.18);
+  --shadow: 0 24px 56px rgba(20, 40, 90, 0.12);
+  --control: #e6edf9;
+  --text: #111827;
+  --muted: #4b5563;
+  --accent: #0f6bff;
+  --accent-strong: #0b50c9;
+  --code-bg: #f3f3f5;
+  --code-border: #d6d6dc;
+  --body-font: "SF Pro Text", "SF Pro Display", "Avenir Next", "Segoe UI", sans-serif;
+  --heading-font: "SF Pro Display", "SF Pro Text", "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.app.theme-basic {
+  --app-bg: radial-gradient(circle at top, #fff8f1 0%, #f7efe7 55%, #f0e6db 100%);
+  --panel: rgba(255, 250, 245, 0.94);
+  --panel-border: rgba(140, 114, 96, 0.16);
+  --surface: rgba(255, 253, 249, 0.98);
+  --surface-border: rgba(174, 143, 122, 0.22);
+  --shadow: 0 18px 44px rgba(90, 60, 35, 0.14);
+  --control: #f2e6db;
+  --text: #3b2f29;
+  --muted: #7b6b61;
+  --accent: #b4532a;
+  --accent-strong: #8f3d1d;
+  --code-bg: #f6f6f6;
+  --code-border: #d0d0d3;
+  --body-font: "Iowan Old Style", "Palatino", "Georgia", serif;
+  --heading-font: "Iowan Old Style", "Palatino", "Georgia", serif;
+}

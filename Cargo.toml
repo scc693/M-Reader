@@ -1,0 +1,15 @@
+[package]
+name = "m_reader_rs"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+dioxus = { version = "0.7.2", features = ["desktop"] }
+directories = "5.0"
+notify = "6.1"
+pulldown-cmark = "0.12"
+rfd = "0.14"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+time = { version = "0.3", features = ["formatting", "serde"] }
+tokio = { version = "1", features = ["time"] }
