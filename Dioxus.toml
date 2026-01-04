@@ -29,7 +29,7 @@ identifier = "com.chestnutdevstudio.mreader"
 publisher = "Chestnut Development Studio"
 
 # Bundle icon
-icon = ["assets/icon.png"]
+icon = ["assets/icon.icns"]
 
 # Bundle resources
 resources = ["assets/*"]
