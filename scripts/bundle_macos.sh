@@ -5,7 +5,7 @@ APP_NAME="M Reader"
 APP_BUNDLE_NAME="${APP_NAME}.app"
 DIST_DIR="dist"
 
-dx bundle --desktop --package-types macos
+dx bundle --desktop --release --package-types macos
 
 APP_PATH="$(find "${DIST_DIR}" -maxdepth 1 -type d -name "*.app" -print | head -n 1)"
 if [[ -z "${APP_PATH}" ]]; then
