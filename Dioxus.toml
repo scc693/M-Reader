@@ -6,6 +6,9 @@ out_dir = "dist"
 # resource (static) file folder
 asset_dir = "assets"
 
+# macOS info.plist override (used for CFBundleDisplayName/Name)
+macos_info_plist = "macos/Info.plist"
+
 [web.wasm_opt]
 # The level wasm-opt should target. z is the smallest. 4 is the fastest.
 level = "4"
