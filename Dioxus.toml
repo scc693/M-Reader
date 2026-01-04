@@ -51,3 +51,6 @@ long_description = """
 M Reader is a lightweight markdown reader built for focus. Open local files,
 browse recent documents, and read with a clean, distraction-free interface.
 """
+
+[bundle.macos]
+bundle_name = "M Reader"
