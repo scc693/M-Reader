@@ -30,7 +30,8 @@ jobs:
             libayatana-appindicator3-dev \
             librsvg2-dev \
             rpm \
-            libfuse2
+            libfuse2 \
+            libxdo-dev
 
       - name: Install Dioxus CLI
         run: cargo install dioxus-cli --locked
