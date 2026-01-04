@@ -13,7 +13,7 @@ level = "4"
 [web.app]
 
 # HTML title tag content
-title = "Dioxus | An elegant GUI library for Rust"
+title = "M Reader"
 
 [web.watcher]
 
@@ -26,7 +26,10 @@ watch_path = ["src", "examples"]
 identifier = "com.chestnutdevstudio.mreader"
 
 # Bundle publisher
-publisher = "MReader"
+publisher = "Chestnut Development Studio"
+
+# Bundle icon
+icon = ["assets/icon.png"]
 
 # Bundle resources
 resources = ["assets/*"]
@@ -38,9 +41,10 @@ copyright = ""
 category = "Utility"
 
 # Bundle short description
-short_description = "An amazing dioxus application."
+short_description = "A clean, fast markdown reader with live preview."
 
 # Bundle long description
 long_description = """
-An amazing dioxus application.
+M Reader is a lightweight markdown reader built for focus. Open local files,
+browse recent documents, and read with a clean, distraction-free interface.
 """
