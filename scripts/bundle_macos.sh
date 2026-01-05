@@ -38,7 +38,7 @@ TMP_DIR="$(mktemp -d)"
 cp -R "${APP_PATH}" "${TMP_DIR}/${APP_BUNDLE_NAME}"
 ln -s /Applications "${TMP_DIR}/Applications"
 
-DMG_PATH="${DIST_DIR}/${APP_NAME}_${VERSION}_x64.dmg"
+DMG_PATH="${DIST_DIR}/${APP_NAME}_${VERSION}_intel.dmg"
 hdiutil create -volname "${APP_NAME}" -srcfolder "${TMP_DIR}" -ov -format UDZO "${DMG_PATH}" >/dev/null
 rm -rf "${TMP_DIR}"
 
