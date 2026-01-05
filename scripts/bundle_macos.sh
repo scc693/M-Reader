@@ -32,13 +32,24 @@ if [[ -f "${PLIST}" ]]; then
 fi
 
 VERSION="$(awk -F\" '/^version/ {print $2; exit}' Cargo.toml)"
+SHORT_VERSION="$(echo "${VERSION}" | cut -d. -f1,2)"
+
+ARCH="$(uname -m)"
+if [[ "${ARCH}" == "x86_64" ]]; then
+  ARCH_SUFFIX="intel"
+elif [[ "${ARCH}" == "arm64" ]]; then
+  ARCH_SUFFIX="arm"
+else
+  ARCH_SUFFIX="${ARCH}"
+fi
+
 mkdir -p "${DIST_DIR}"
 
 TMP_DIR="$(mktemp -d)"
 cp -R "${APP_PATH}" "${TMP_DIR}/${APP_BUNDLE_NAME}"
 ln -s /Applications "${TMP_DIR}/Applications"
 
-DMG_PATH="${DIST_DIR}/${APP_NAME}_${VERSION}_intel.dmg"
+DMG_PATH="${DIST_DIR}/${APP_NAME}_${SHORT_VERSION}_${ARCH_SUFFIX}.dmg"
 hdiutil create -volname "${APP_NAME}" -srcfolder "${TMP_DIR}" -ov -format UDZO "${DMG_PATH}" >/dev/null
 rm -rf "${TMP_DIR}"
 
