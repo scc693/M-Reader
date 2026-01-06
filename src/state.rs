@@ -21,16 +21,29 @@ pub enum ReaderTheme {
     GitHub,
     DocC,
     Basic,
+    GitHubDark,
+    DocCDark,
+    BasicDark,
 }
 
 impl ReaderTheme {
-    pub const ALL: [ReaderTheme; 3] = [ReaderTheme::GitHub, ReaderTheme::DocC, ReaderTheme::Basic];
+    pub const ALL: [ReaderTheme; 6] = [
+        ReaderTheme::GitHub,
+        ReaderTheme::DocC,
+        ReaderTheme::Basic,
+        ReaderTheme::GitHubDark,
+        ReaderTheme::DocCDark,
+        ReaderTheme::BasicDark,
+    ];
 
     pub fn display_name(self) -> &'static str {
         match self {
             ReaderTheme::GitHub => "GitHub",
             ReaderTheme::DocC => "DocC",
             ReaderTheme::Basic => "Basic",
+            ReaderTheme::GitHubDark => "GitHub Dark",
+            ReaderTheme::DocCDark => "DocC Dark",
+            ReaderTheme::BasicDark => "Basic Dark",
         }
     }
 
@@ -39,6 +52,9 @@ impl ReaderTheme {
             ReaderTheme::GitHub => "github",
             ReaderTheme::DocC => "docc",
             ReaderTheme::Basic => "basic",
+            ReaderTheme::GitHubDark => "github-dark",
+            ReaderTheme::DocCDark => "docc-dark",
+            ReaderTheme::BasicDark => "basic-dark",
         }
     }
 
@@ -47,6 +63,9 @@ impl ReaderTheme {
             ReaderTheme::GitHub => "theme-github",
             ReaderTheme::DocC => "theme-docc",
             ReaderTheme::Basic => "theme-basic",
+            ReaderTheme::GitHubDark => "theme-github-dark",
+            ReaderTheme::DocCDark => "theme-docc-dark",
+            ReaderTheme::BasicDark => "theme-basic-dark",
         }
     }
 
@@ -55,6 +74,9 @@ impl ReaderTheme {
             "github" => Some(ReaderTheme::GitHub),
             "docc" => Some(ReaderTheme::DocC),
             "basic" => Some(ReaderTheme::Basic),
+            "github-dark" => Some(ReaderTheme::GitHubDark),
+            "docc-dark" => Some(ReaderTheme::DocCDark),
+            "basic-dark" => Some(ReaderTheme::BasicDark),
             _ => None,
         }
     }
