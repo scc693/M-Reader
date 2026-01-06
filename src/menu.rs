@@ -13,6 +13,9 @@ pub const MENU_CLEAR_RECENT: &str = "mreader.clear_recent";
 pub const MENU_THEME_GITHUB: &str = "mreader.theme.github";
 pub const MENU_THEME_DOCC: &str = "mreader.theme.docc";
 pub const MENU_THEME_BASIC: &str = "mreader.theme.basic";
+pub const MENU_THEME_GITHUB_DARK: &str = "mreader.theme.github.dark";
+pub const MENU_THEME_DOCC_DARK: &str = "mreader.theme.docc.dark";
+pub const MENU_THEME_BASIC_DARK: &str = "mreader.theme.basic.dark";
 pub const MENU_RECENT_PREFIX: &str = "mreader.recent.";
 const MENU_RECENT_EMPTY: &str = "mreader.recent.empty";
 
@@ -30,6 +33,9 @@ struct ThemeItems {
     github: CheckMenuItem,
     docc: CheckMenuItem,
     basic: CheckMenuItem,
+    github_dark: CheckMenuItem,
+    docc_dark: CheckMenuItem,
+    basic_dark: CheckMenuItem,
 }
 
 pub fn build_menu(settings: &StoredSettings) -> Menu {
@@ -60,6 +66,9 @@ pub fn theme_from_id(id: &str) -> Option<ReaderTheme> {
         MENU_THEME_GITHUB => Some(ReaderTheme::GitHub),
         MENU_THEME_DOCC => Some(ReaderTheme::DocC),
         MENU_THEME_BASIC => Some(ReaderTheme::Basic),
+        MENU_THEME_GITHUB_DARK => Some(ReaderTheme::GitHubDark),
+        MENU_THEME_DOCC_DARK => Some(ReaderTheme::DocCDark),
+        MENU_THEME_BASIC_DARK => Some(ReaderTheme::BasicDark),
         _ => None,
     }
 }
@@ -110,6 +119,10 @@ impl MenuBindings {
             &theme_items.github,
             &theme_items.docc,
             &theme_items.basic,
+            &PredefinedMenuItem::separator(),
+            &theme_items.github_dark,
+            &theme_items.docc_dark,
+            &theme_items.basic_dark,
         ]);
 
         let reader_menu = Submenu::new("Reader", true);
@@ -160,6 +173,15 @@ impl MenuBindings {
         self.theme_items.github.set_checked(theme == ReaderTheme::GitHub);
         self.theme_items.docc.set_checked(theme == ReaderTheme::DocC);
         self.theme_items.basic.set_checked(theme == ReaderTheme::Basic);
+        self.theme_items
+            .github_dark
+            .set_checked(theme == ReaderTheme::GitHubDark);
+        self.theme_items
+            .docc_dark
+            .set_checked(theme == ReaderTheme::DocCDark);
+        self.theme_items
+            .basic_dark
+            .set_checked(theme == ReaderTheme::BasicDark);
     }
 
     fn sync_recent(&self, recent: &[RecentFileRecord]) {
@@ -212,10 +234,34 @@ impl ThemeItems {
             selected == ReaderTheme::Basic,
             None,
         );
+        let github_dark = CheckMenuItem::with_id(
+            MENU_THEME_GITHUB_DARK,
+            "GitHub Dark",
+            true,
+            selected == ReaderTheme::GitHubDark,
+            None,
+        );
+        let docc_dark = CheckMenuItem::with_id(
+            MENU_THEME_DOCC_DARK,
+            "DocC Dark",
+            true,
+            selected == ReaderTheme::DocCDark,
+            None,
+        );
+        let basic_dark = CheckMenuItem::with_id(
+            MENU_THEME_BASIC_DARK,
+            "Basic Dark",
+            true,
+            selected == ReaderTheme::BasicDark,
+            None,
+        );
         Self {
             github,
             docc,
             basic,
+            github_dark,
+            docc_dark,
+            basic_dark,
         }
     }
 }
