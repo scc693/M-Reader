@@ -140,7 +140,9 @@ impl AppState {
             Ok((content, modified)) => {
                 self.markdown_text = content.clone();
                 self.rendered_html = render_markdown(&content);
-                self.document_name = path.file_name().map(|name| name.to_string_lossy().to_string());
+                self.document_name = path
+                    .file_name()
+                    .map(|name| name.to_string_lossy().to_string());
                 self.current_path = Some(path.clone());
                 self.error_message = None;
                 self.last_modified = Some(modified);
@@ -148,6 +150,7 @@ impl AppState {
             }
             Err(message) => {
                 self.error_message = Some(message);
+                self.last_modified = None;
             }
         }
     }
@@ -167,17 +170,20 @@ impl AppState {
     }
 
     pub fn file_modified_time(path: &Path) -> Result<SystemTime, String> {
-        let metadata = fs::metadata(path)
-            .map_err(|err| format!("Failed to read metadata: {}", err))?;
+        let metadata =
+            fs::metadata(path).map_err(|err| format!("Failed to read metadata: {}", err))?;
         metadata
             .modified()
             .map_err(|err| format!("Failed to read modification time: {}", err))
     }
 
     fn add_recent_file(&mut self, path: &Path) {
-        let display_name = path.file_name().map(|name| name.to_string_lossy().to_string());
+        let display_name = path
+            .file_name()
+            .map(|name| name.to_string_lossy().to_string());
         let display_name = display_name.unwrap_or_else(|| "Untitled".to_string());
-        self.recent_files.retain(|record| record.path != path.to_string_lossy());
+        self.recent_files
+            .retain(|record| record.path != path.to_string_lossy());
         let record = RecentFileRecord {
             path: path.to_string_lossy().to_string(),
             display_name,
