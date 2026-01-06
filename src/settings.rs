@@ -2,7 +2,9 @@ use directories::ProjectDirs;
 use std::fs;
 use std::path::PathBuf;
 
-use crate::state::StoredSettings;
+use std::io::{self, ErrorKind};
+
+use crate::state::{MAX_RECENT_FILES, StoredSettings};
 
 const ORG_QUALIFIER: &str = "com";
 const ORG_NAME: &str = "stuart";
@@ -17,7 +19,9 @@ pub fn load_settings() -> StoredSettings {
         return StoredSettings::default();
     };
 
-    serde_json::from_slice(&data).unwrap_or_default()
+    let settings: StoredSettings = serde_json::from_slice(&data).unwrap_or_default();
+
+    normalize_settings(settings)
 }
 
 pub fn save_settings(settings: &StoredSettings) -> std::io::Result<()> {
@@ -27,11 +31,20 @@ pub fn save_settings(settings: &StoredSettings) -> std::io::Result<()> {
     if let Some(parent) = path.parent() {
         fs::create_dir_all(parent)?;
     }
-    let data = serde_json::to_vec_pretty(settings).unwrap_or_default();
+    let data =
+        serde_json::to_vec_pretty(settings).map_err(|err| io::Error::new(ErrorKind::Other, err))?;
     fs::write(path, data)
 }
 
 fn settings_path() -> Option<PathBuf> {
     ProjectDirs::from(ORG_QUALIFIER, ORG_NAME, APP_NAME)
         .map(|dirs| dirs.config_dir().join("settings.json"))
+}
+
+fn normalize_settings(mut settings: StoredSettings) -> StoredSettings {
+    settings
+        .recent_files
+        .sort_by(|a, b| b.last_opened.cmp(&a.last_opened));
+    settings.recent_files.truncate(MAX_RECENT_FILES);
+    settings
 }
