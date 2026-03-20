@@ -5,6 +5,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Keep this version in sync with the dioxus dependency in Cargo.toml
+env:
+  DIOXUS_CLI_VERSION: "0.7.3"
+
 jobs:
   bundle:
     runs-on: ${{ matrix.os }}
@@ -33,8 +37,18 @@ jobs:
             libfuse2 \
             libxdo-dev
 
+      - name: Cache Dioxus CLI
+        id: cache-dx
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/dx
+            ~/.cargo/bin/dx.exe
+          key: dx-cli-${{ runner.os }}-${{ env.DIOXUS_CLI_VERSION }}
+
       - name: Install Dioxus CLI
-        run: cargo install dioxus-cli --locked
+        if: steps.cache-dx.outputs.cache-hit != 'true'
+        run: cargo install dioxus-cli --version ${{ env.DIOXUS_CLI_VERSION }} --locked
 
       - name: Bundle (macOS)
         if: runner.os == 'macOS'

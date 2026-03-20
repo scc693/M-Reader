@@ -4,6 +4,8 @@ use dioxus::prelude::*;
 use std::path::PathBuf;
 use std::time::Duration;
 
+use crate::FileEventReceiver;
+
 use crate::menu;
 use crate::settings::{load_settings, save_settings};
 use crate::state::{AppState, ReaderTheme, StoredSettings};
@@ -16,6 +18,29 @@ pub fn app() -> Element {
     let file_tick = use_signal_sync(|| 0u64);
     let watcher = use_signal(FileWatcher::new);
     let debounce_task = use_signal(|| None as Option<Task>);
+
+    // Background loop: receives file paths from Finder double-click (Apple Events)
+    // and CLI args. Runs once for the lifetime of the component.
+    let file_rx = use_context::<FileEventReceiver>();
+    use_future(move || {
+        let mut state = state.clone();
+        let rx = file_rx.0.clone();
+        async move {
+            loop {
+                tokio::time::sleep(Duration::from_millis(100)).await;
+                let path = rx.try_lock().ok().and_then(|g| g.try_recv().ok());
+                if let Some(path) = path {
+                    let settings = {
+                        let mut snapshot = state.write();
+                        snapshot.load_path(path);
+                        menu::sync_recent_menu(&snapshot.recent_files);
+                        snapshot.to_settings()
+                    };
+                    persist_settings(settings);
+                }
+            }
+        }
+    });
 
     use_effect({
         let mut watcher = watcher.clone();
