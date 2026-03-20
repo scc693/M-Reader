@@ -4,7 +4,7 @@ version = "1.0.0"
 edition = "2024"
 
 [dependencies]
-dioxus = { version = "0.7.2", features = ["desktop"] }
+dioxus = { version = "0.7.3", features = ["desktop"] }
 directories = "5.0"
 notify = "6.1"
 pulldown-cmark = "0.12"
